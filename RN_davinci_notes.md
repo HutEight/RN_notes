@@ -10,9 +10,31 @@ Version 20180122
 
 ### Gazebo Simulation Launch Files and Models
 
-01. Main launch file:
+01. Main launch file: e.g.[sticky_davinci_gazebo.launch]()
 
-&#8194 CWRU version launch file -- [sticky_davinci_gazebo.launch]()
+You can add these lines to reset the Gazebo environment, so that its default models folder can be remapped to the path where you store all your models to be loaded into Gazebo.
+```
+<env name="GAZEBO_MODEL_PATH" value="$(find cwru_davinci_gazebo)/model"/>
+<env name="GAZEBO_MODEL_PATH" value="$(find cwru_davinci_gazebo)/props"/>
+```
 
+It should first launch a .world file 
+```
+<include file="$(find cwru_davinci_gazebo)/launch/empty_world.launch">
+  <arg name="world_name" value="$(find cwru_davinci_gazebo)/world/sticky_davinci.world"/>
+	<arg name="debug" value="$(arg debug)" />
+	<arg name="gui" value="$(arg gui)" />
+	<arg name="paused" value="$(arg paused)"/>
+	<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+	<arg name="headless" value="$(arg headless)"/>
+</include>
+```
 
+It then load the robot description macro, and spwan a rbot into Gazebo.
+```
+<param name="robot_description" command="$(find xacro)/xacro.py '$(find cwru_davinci_gazebo)/model/both_psms_sticky.urdf.xacro'" />
+<!-- Spawn a robot into Gazebo -->
+<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model davinci">
+</node>
+```
 
