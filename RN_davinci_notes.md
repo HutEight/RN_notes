@@ -12,7 +12,7 @@ Version 20180122
 
 01. Main launch file:
 
-CWRU version launch file -- [sticky_davinci_gazebo.launch]()
+&#8194 CWRU version launch file -- [sticky_davinci_gazebo.launch]()
 
 
 
